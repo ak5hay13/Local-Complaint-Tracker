@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,6 +26,7 @@ app.use('/api/volunteer-groups', require('../routes/volunteer-groups'));
 app.get('/', (req, res) => {
   res.json({
     message: 'Complaint Tracker API is running!',
+    timestamp: new Date().toISOString(),
     endpoints: {
       auth: '/api/auth',
       complaints: '/api/complaints',
