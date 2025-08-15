@@ -10,30 +10,26 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('✅ MongoDB connected'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Routes
 app.use('/api/auth', require('../routes/auth'));
 app.use('/api/complaints', require('../routes/complaints'));
-app.use('/api/volunteer-groups', require('../routes/volunteer-groups'));
+app.use('/api/volunteer-groups', require('../routes/volunteerGroups'));
 
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
     message: 'Complaint Tracker API is running!',
-    timestamp: new Date().toISOString(),
-    endpoints: {
-      auth: '/api/auth',
-      complaints: '/api/complaints',
-      volunteerGroups: '/api/volunteer-groups'
-    }
+    timestamp: new Date().toISOString()
   });
 });
 
-// Export for Vercel
+app.get('/api', (req, res) => {
+  res.json({ message: 'API endpoint working' });
+});
+
+// IMPORTANT: Export for Vercel
 module.exports = app;
