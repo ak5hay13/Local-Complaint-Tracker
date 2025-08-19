@@ -5,3 +5,13 @@ build/
 *.log
 npm-debug.log*
 .DS_Store
+
+
+
+
+frontend/build/
+backend/build/
+
+# Logs
+*.log
+"backend/.env" 
